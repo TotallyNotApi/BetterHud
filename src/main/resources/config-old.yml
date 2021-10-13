@@ -1,0 +1,219 @@
+config-version: "1.1" # DON'T TOUCH THIS!!
+texture-version: "1.2" # DON'T TOUCH THIS!!
+#
+#  ██████╗ ███████╗████████╗████████╗███████╗██████╗ ██╗  ██╗██╗   ██╗██████╗
+#  ██╔══██╗██╔════╝╚══██╔══╝╚══██╔══╝██╔════╝██╔══██╗██║  ██║██║   ██║██╔══██╗
+#  ██████╔╝█████╗     ██║      ██║   █████╗  ██████╔╝███████║██║   ██║██║  ██║
+#  ██╔══██╗██╔══╝     ██║      ██║   ██╔══╝  ██╔══██╗██╔══██║██║   ██║██║  ██║
+#  ██████╔╝███████╗   ██║      ██║   ███████╗██║  ██║██║  ██║╚██████╔╝██████╔╝
+#  ╚═════╝ ╚══════╝   ╚═╝      ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝
+#
+# Author: ApiGames
+# SpigotMC: https://www.spigotmc.org/resources/betterhud-custom-minecraft-hud-itemsadder-addon.84180/
+# Discord: https://discord.gg/MUFrGfTTWY
+# Wiki: https://apigames.gitbook.io/betterhud/
+#
+# Support is given only through the discord ticket system!
+#
+configuration:
+
+  #How often should we refresh all placeholders in hud?
+  hud-refresh:
+    period: 1 #IN SECONDS
+
+  #This feature requires self-host enabled
+  show-vanilla-hud: false
+
+  #Multiple Huds
+  # You can create unlimited number of huds, but don't overdo it ;)
+  # Valid display values: ACTIONBAR, BOSSBAR, PLACEHOLDER, GUI
+  huds:
+
+    #Example of placeholder display type
+    #
+    # This example is made for the last line of scoreboard
+    # Display it using placeholder: %betterhud_placeholder-example%
+    #
+    placeholder-example:
+      display: PLACEHOLDER
+      permission: "betterhud.hud.placeholderExample"
+
+    #Example of GUI display type
+    #
+    # This configuration shows custom text inside GUI
+    # Display it using placeholder in title: %betterhud_gui-example%
+    #
+    gui-example:
+      display: GUI
+      permission: "betterhud.hud.guiExample"
+      title: "&7GUI Test"
+      title-offset: -30
+      position: "before" #Should we put the hud after/before title?
+
+    #Example of permission based HUD
+    #
+    # Only players with permission "betterhud.hud.admin" can see this hud
+    #
+    admin-hud:
+      display: BOSSBAR
+      permission: "betterhud.hud.admin"
+      toggle-command: "/adminhud" #This command will work after server restart
+      toggle-actions:
+        on-join: true
+
+    #Default hud
+    #
+    # Shows on join only when player doesn't meet conditions for previous huds
+    # Can be toggled using /hud
+    #
+    default-hud:
+      display: ACTIONBAR
+      toggle-command: "/hud" #This command will work after server restart
+      toggle-actions:
+        on-gamemode-change-to: "SURVIVAL" #Valid values: SURVIVAL, ADVENTURE, CREATIVE, SPECTATOR
+        on-join: true
+
+  #Hud content
+  # You must assign at least one hud part to the each hud
+  # Every hud part must have specified type
+  #
+  #Valid types:
+  # TEXT - Can display every char from alphabet, special chars, numbers and custom characters
+  # INTEGER - Can display only numbers (I suggest to use this, when the output of the placeholder is always only number)
+  # ICON - Can display only icons, which are located in "ItemsAdder/data/items_packs/betterhud/textures/font/icons/"
+  #
+  # TEXT and INTEGER must have max-length set!
+  #
+  # For more examples, placeholders and other useful stuff, visit BetterHud's wiki!
+  # https://apigames.gitbook.io/betterhud/
+  #
+  hud-content:
+
+    #DEBUG HUD - JUST FOR TESTING TEXTURE INTEGRITY
+    debug-hud:
+      text:
+        type: TEXT
+        position-x: 0
+        position-y: 0
+        scale: 8
+        max-length: 128
+        input: abcdefghijklmnopqrstuvwxyz
+      text-CAPITAL:
+        type: TEXT
+        position-x: 0
+        position-y: -15
+        scale: 8
+        max-length: 128
+        input: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+      special:
+        type: TEXT
+        position-x: 0
+        position-y: -30
+        scale: 8
+        max-length: 128
+        input: ',.-_!?()[]@#+%:;=<>*/\'
+      numbers:
+        type: INTEGER
+        position-x: 0
+        position-y: -45
+        scale: 8
+        max-length: 128
+        input: ',.- 0123456789'
+
+    placeholder-example:
+      textLine1:
+        type: TEXT
+        position-x: 0
+        position-y: -10
+        scale: 12
+        max-length: 16
+        input: '{#a37833}Line1'
+      textLine2:
+        type: TEXT
+        position-x: -33
+        position-y: -25
+        scale: 12
+        max-length: 16
+        input: '&eLine2'
+
+    gui-example:
+      guiText:
+        type: TEXT
+        position-x: 0
+        position-y: -20
+        scale: 12
+        max-length: 8
+        input: '&6Test'
+
+    admin-hud:
+      align-text:
+        type: TEXT
+        position-x: 0
+        position-y: -22
+        scale: 12
+        max-length: 15
+        input: '{#ff0000}YOU ARE ADMIN'
+        fixed-position: true
+        align: right
+
+    default-hud:
+      health-icon:
+        type: ICON
+        position-x: -40
+        position-y: -20
+        scale: 14
+        texture-path: hp.png
+      health:
+        type: INTEGER
+        position-x: -35
+        position-y: -22
+        scale: 10
+        max-length: 4
+        input: '{health-formatted}'
+        fixed-position: true
+      armor-icon:
+        type: ICON
+        position-x: -18
+        position-y: -20
+        scale: 14
+        texture-path: armor.png
+      armor:
+        type: INTEGER
+        position-x: -13
+        position-y: -22
+        scale: 10
+        max-length: 2
+        input: '{armor}'
+        fixed-position: true
+      food-icon:
+        type: ICON
+        position-x: 15
+        position-y: -20
+        scale: 14
+        texture-path: hunger.png
+      food:
+        type: INTEGER
+        position-x: 20
+        position-y: -22
+        scale: 10
+        max-length: 2
+        input: '{food}'
+        fixed-position: true
+      oxygen-icon:
+        type: ICON
+        position-x: 30
+        position-y: -20
+        scale: 12
+        texture-path: oxygen.png
+      oxygen:
+        type: INTEGER
+        position-x: 35
+        position-y: -22
+        scale: 10
+        max-length: 2
+        input: '{oxygen}'
+        fixed-position: true
+
+  #Should we enable debug log?
+  debug:
+    enabled: false

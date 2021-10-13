@@ -1,0 +1,14 @@
+name: BetterHud
+version: ${project.version}
+main: cz.apigames.betterhud.BetterHud
+api-version: 1.14
+depend: [ItemsAdder]
+authors: [ApiGames]
+description: Addon for displaying custom hud in Minecraft!
+commands:
+  bh:
+    description: Main command
+    usage: /bh
+  betterhud:
+    description: Main command
+    usage: /betterhud

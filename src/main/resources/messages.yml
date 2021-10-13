@@ -1,0 +1,50 @@
+messages:
+  no-permission: " &8» &cYou don't have enough permissions!"
+  players-only: " &8» &cThis command is for players only!"
+
+  reload-successful: " &8» &aPlugin has been reloaded successfully! This task took &2{time}ms&a!"
+  reload-itemsadder: " &8» &7Detected FontImage file change. Executed ItemsAdder reload, please apply the pack for all players if its necessary."
+  reload-error: " &8» &cAn error occurred while reloading plugin! Please, check console for more information."
+
+  hud-display-error: " &8» &cAn error occurred while displaying hud! Please, contact server admin."
+
+  no-player: " &8» &cYou must specify a player name!"
+  no-hud: " &8» &cYou must specify a hud name!"
+  no-display: " &8» &cYou must specify a display type!"
+  no-element: " &8» &cYou must specify an element name!"
+  no-value: " &8» &cYou must specify a valid alue!"
+
+  unknown-hud: " &8» &cThis hud doesn't exist!"
+  unknown-player: " &8» &cThis player is offline or doesn't exist!"
+  unknown-display: " &8» &cThis display type is not valid!"
+  unknown-element: " &8» &cThis element doesn't exist in this hud!"
+  unknown-subcommand: " &8» &cUnknown sub-command! Try /bh help "
+
+  show-all: " &8» &7Hud &e{hudName} &7was successfully rendered for all players!"
+  show-player: " &8» &7Hud &e{hudName} &7was successfully rendered for &a{player}&7!"
+  show-error: " &8» &cAn error occurred while rendering this hud: &o{error}"
+  show-display-active: " &8» &cSome other hud is currently displayed via this display! Hide the active hud before rendering this hud."
+  show-condition-error: " &8» &cThis player doesn't meet the conditions for displaying this hud!"
+
+  hide-all: " &8» &7Hud &e{hudName} &7was successfully hidden from all players!"
+  hide-player: " &8» &7Hud &e{hudName} &7was successfully hidden from &a{player}&7!"
+
+  setvalue-all: " &8» &7New value was assigned to element &e{element} &7for all players!"
+  setvalue-player: " &8» &7New value was assigned to element &e{element} &7for &a{player}&7!"
+
+  getvalue-player: " &8» &6{element}'s value for player &e{player}&7: &f{value}"
+
+  resetvalue-all: " &8» &7The default value was assigned to element &e{element} &7for all players!"
+  resetvalue-player: " &8» &7The default value was assigned to element &e{element} &7for &a{player}&7!"
+
+  showelement-all: " &8» &7Element &e{element} &7is now visible to all players!"
+  showelement-player: " &8» &7Element &e{element} &7is now visible to &a{player}&7!"
+
+  hideelement-all: " &8» &7Element &e{element} &7is no longer visible for all players!"
+  hideelement-player: " &8» &7Element &e{element} &7is no longer visible for &a{player}&7!"
+
+  set-x: " &8» &7The X-coordinate of element &e{element} &7is now &6{value}&7!"
+
+  invalid-number: " &8» &cThe value is not a valid number!"
+
+  command-error: " &8» &cAn error occurred while executing this command! Please, check console for more information."

@@ -1,0 +1,57 @@
+config-version: "1.2" # DON'T TOUCH THIS!!
+texture-version: "1.2" # DON'T TOUCH THIS!!
+
+configuration:
+
+  #Should we enable debug log?
+  debug:
+    enabled: false
+
+huds:
+
+  example-hud:
+    refresh-interval: 500 #in milliseconds
+    conditions:
+      #hp: "compare={health-formatted}>10"
+      #exp: "compare=%player_current_exp%<5"
+      permission: "perm=betterhud.hud.example"
+    toggle-events:
+      join:
+        event: PLAYER_JOIN
+        display: ACTIONBAR
+        hide_after: 10 #in seconds
+      gamemode:
+        event: GAMEMODE_CHANGE
+        display: ACTIONBAR
+        value: "SURVIVAL"
+
+    elements:
+
+      oxygenExample:
+        type: INTEGER
+        position-x: 800
+        position-y: -16
+        scale: 16
+        value: "{oxygen_bubbles}"
+        align: left
+        conditions:
+          air: "compare={oxygen}<300"
+
+      #plainExample:
+      #  type: PLAIN_TEXT
+      #  position-x: 950
+      #  value: "Plain example"
+
+      integerExample:
+        type: INTEGER
+        position-x: 1100
+        position-y: -16
+        scale: 8
+        value: "&c{health_formatted}"
+
+      imageExample:
+        type: IMAGE
+        position-x: 1000
+        position-y: -8
+        scale: 16
+        texture-path: "betterhud:images/example.png" #The format must be "%namespace%:%path%"
