@@ -43,10 +43,14 @@ public final class BetterHud extends JavaPlugin {
                 error("Failed to update plugin files! Check 'logs/errors.txt' for more info", e);
             }
 
+            //LOGGER
             Logger.createNewLogs();
 
             //UPDATE CHECKER
             UpdateChecker.checkUpdate();
+
+            //EXTRACT TEXTURES
+            TextureExtractor.extract();
 
             // --- BetterHudAPI --- \\
 
