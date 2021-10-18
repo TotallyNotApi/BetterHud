@@ -8,6 +8,9 @@
 # IntelliJ
 out/
 
+#OLD VERSION OF THE PLUGIN
+plugin_old/
+
 # Compiled class file
 *.class
 
