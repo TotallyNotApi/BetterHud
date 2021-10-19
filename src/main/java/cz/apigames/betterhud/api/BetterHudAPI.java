@@ -435,9 +435,17 @@ public class BetterHudAPI {
                                 character -> {
 
                                     if(character.length() > 0) {
-                                        charactersPath.put(character, namespace+":"+path+charFile.getString("groups."+group+".characters."+character));
-                                        charactersInternalNames.put(character.charAt(0), charFile.getString("groups."+group+".characters."+character).split("\\.")[0]);
-                                        charBuilder.append(character);
+
+                                        if(character.equals(":dot:")) {
+                                            charactersPath.put(".", namespace+":"+path+charFile.getString("groups."+group+".characters.:dot:"));
+                                            charactersInternalNames.put(".".charAt(0), charFile.getString("groups."+group+".characters.:dot:").split("\\.")[0]);
+                                            charBuilder.append(".");
+                                        } else {
+                                            charactersPath.put(character, namespace+":"+path+charFile.getString("groups."+group+".characters."+character));
+                                            charactersInternalNames.put(character.charAt(0), charFile.getString("groups."+group+".characters."+character).split("\\.")[0]);
+                                            charBuilder.append(character);
+                                        }
+
                                     }
                                 }
                         );

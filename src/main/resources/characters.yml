@@ -6,6 +6,8 @@ groups:
   #Valid additional options are:
   # - y-offset (eg.: "g.png;y-offset:-2"
   #
+  #For displaying "." use ":dot:" because of YAML parser
+  #
   #The characters are case-sensitive!!
 
   letters:
@@ -93,7 +95,7 @@ groups:
       - "INTEGER"
     characters:
       ',': "comma.png;y-offset=-1"
-      '.': "dot.png"
+      ':dot:': "dot.png"
       '-': "minus.png"
       '_': "low_line.png"
       '!': "exclamation_mark.png"

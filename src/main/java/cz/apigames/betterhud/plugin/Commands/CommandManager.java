@@ -10,6 +10,7 @@ import cz.apigames.betterhud.api.Utils.MessageUtils;
 import cz.apigames.betterhud.plugin.Utils.ConfigManager;
 import cz.apigames.betterhud.plugin.Utils.FileUtils;
 import cz.apigames.betterhud.plugin.Utils.JsonMessage;
+import cz.apigames.betterhud.plugin.Utils.TextureExtractor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -18,6 +19,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -799,6 +801,28 @@ public class CommandManager implements CommandExecutor {
 
                 }
 
+                //EXPORT TEXTURES
+                else if(args[0].equalsIgnoreCase("extractTextures")) {
+
+                    if(sender.hasPermission("betterhud.command.extracttextures")) {
+
+                        try {
+                            if(TextureExtractor.extract()) {
+                                sender.sendMessage(BetterHud.getMessage("extract-textures-success"));
+                            } else {
+                                sender.sendMessage(BetterHud.getMessage("extract-textures-error"));
+                            }
+                        } catch (IOException e) {
+                            BetterHud.error("Failed to extract textures from JAR file!", e);
+                            sender.sendMessage(BetterHud.getMessage("extract-textures-error"));
+                        }
+
+                    } else {
+                        sender.sendMessage(BetterHud.getMessage("no-permission"));
+                    }
+
+                }
+
                 //TEST
                 else if(args[0].equalsIgnoreCase("test")) {
 
@@ -851,6 +875,7 @@ public class CommandManager implements CommandExecutor {
             JsonMessage.sendMessage(player, "/bh setX","&8- &e/bh setX (hud) (element) (value)", "&bSet x-coordinate of element\n\n&7Permission: &ebetterhud.command.setx\n\n&f&lEXAMPLES:\n&a/bh setX example_hud example_text 120");
             JsonMessage.sendMessage(player, "/bh reload","&8- &e/bh reload", "&bReload the plugin\n\n&7Permission: &ebetterhud.command.reload");
             JsonMessage.sendMessage(player, "/bh report-bug","&8- &e/bh report-bug", "&bGenerate report log\n\n&7Permission: &ebetterhud.command.report-bug");
+            JsonMessage.sendMessage(player, "/bh extractTextures","&8- &e/bh extractTextures", "&bExtract default BetterHud textures\n\n&7Permission: &ebetterhud.command.extracttextures");
             sender.sendMessage(" ");
             sender.sendMessage(MessageUtils.colorize("&eTIP &8» &fTry &ahovering &fover the command to see more info and examples!"));
 
@@ -865,6 +890,7 @@ public class CommandManager implements CommandExecutor {
             sender.sendMessage(MessageUtils.colorize("&8- &e/bh setX (hud) (element) (value) &7- Set x-coordinate of element"));
             sender.sendMessage(MessageUtils.colorize("&8- &e/bh reload &7- Reload the plugin"));
             sender.sendMessage(MessageUtils.colorize("&8- &e/bh report-bug &7- Generate report log"));
+            sender.sendMessage(MessageUtils.colorize("&8- &e/bh extractTextures &7- Extract default BetterHud textures"));
         }
 
         sender.sendMessage(" ");
