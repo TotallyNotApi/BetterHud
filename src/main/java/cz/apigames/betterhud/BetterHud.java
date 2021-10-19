@@ -43,10 +43,26 @@ public final class BetterHud extends JavaPlugin {
                 error("Failed to update plugin files! Check 'logs/errors.txt' for more info", e);
             }
 
+            //LOGGER
             Logger.createNewLogs();
 
             //UPDATE CHECKER
             UpdateChecker.checkUpdate();
+
+            //EXTRACT TEXTURES
+            if(!new File("plugins/ItemsAdder/data/items_packs/betterhud").exists()) {
+
+                try {
+                    if(TextureExtractor.extract()) {
+                        sendMessageToConsole("Default textures have been exported successfully!");
+                    } else {
+                        sendErrorToConsole("Failed to export default textures from JAR file!");
+                    }
+                } catch (IOException e) {
+                    error("Failed to export default textures from JAR file!", e);
+                }
+
+            }
 
             // --- BetterHudAPI --- \\
 
@@ -139,7 +155,7 @@ public final class BetterHud extends JavaPlugin {
     }
 
     public static void sendMessageToConsole(String message) {
-        Bukkit.getConsoleSender().sendMessage(MessageUtils.colorize("&e[BetterHud] "+message));
+        Bukkit.getConsoleSender().sendMessage(MessageUtils.colorize("&e[BetterHud] &a"+message));
     }
 
     public static boolean isIASelfHosted() {

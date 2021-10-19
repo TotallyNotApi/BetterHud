@@ -27,7 +27,7 @@ public class TabManager implements TabCompleter {
         List<String> tabComplete = new ArrayList<>();
 
         if(args.length == 1) {
-            List<String> commands = Arrays.asList("show", "hide", "setValue", "getValue", "resetValue", "showElement", "hideElement", "setX", "reload", "report-bug");
+            List<String> commands = Arrays.asList("show", "hide", "setValue", "getValue", "resetValue", "showElement", "hideElement", "setX", "reload", "extractTextures", "report-bug");
 
             StringUtil.copyPartialMatches(args[0], commands, tabComplete);
             Collections.sort(tabComplete);
