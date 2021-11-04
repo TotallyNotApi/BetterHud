@@ -3,7 +3,6 @@ package cz.apigames.betterhud.api.Elements;
 import cz.apigames.betterhud.api.Utils.Condition;
 import cz.apigames.betterhud.api.Utils.MessageUtils;
 import dev.lone.itemsadder.api.FontImages.FontImageWrapper;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class ImageElement extends Element {
@@ -32,6 +31,18 @@ public class ImageElement extends Element {
             width = image.getWidth();
 
         }
+    }
+
+    /* --- SETTERS --- */
+
+    /**
+     * Change the width of the image
+     * (Note: This wont change the rendered image!! This "width" value is for internal calculations only!)
+     *
+     * @param width the width
+     */
+    public void setWidth(int width) {
+        this.width = width;
     }
 
     /* --- GETTERS --- */
