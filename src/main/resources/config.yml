@@ -1,11 +1,37 @@
-config-version: "1.2" # DON'T TOUCH THIS!!
+config-version: "1.3" # DON'T TOUCH THIS!!
 texture-version: "1.2" # DON'T TOUCH THIS!!
+#
+#  ██████╗ ███████╗████████╗████████╗███████╗██████╗ ██╗  ██╗██╗   ██╗██████╗
+#  ██╔══██╗██╔════╝╚══██╔══╝╚══██╔══╝██╔════╝██╔══██╗██║  ██║██║   ██║██╔══██╗
+#  ██████╔╝█████╗     ██║      ██║   █████╗  ██████╔╝███████║██║   ██║██║  ██║
+#  ██╔══██╗██╔══╝     ██║      ██║   ██╔══╝  ██╔══██╗██╔══██║██║   ██║██║  ██║
+#  ██████╔╝███████╗   ██║      ██║   ███████╗██║  ██║██║  ██║╚██████╔╝██████╔╝
+#  ╚═════╝ ╚══════╝   ╚═╝      ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝
+#
+# Author: ApiGames
+# SpigotMC: https://www.spigotmc.org/resources/betterhud-custom-minecraft-hud-itemsadder-addon.84180/
+# Discord: https://discord.gg/MUFrGfTTWY
+# Wiki: https://apigames.gitbook.io/betterhud/
+#
+# Support is given only through the discord ticket system!
+#
 
 configuration:
 
   #Should we enable debug log?
   debug:
     enabled: false
+
+  #When its false, there can be some incompatibility issues
+  disable-itesmadder-hud: true
+
+  #This option controls behaviour of custom texture (assets/minecraft/textures/gui/icons.png),
+  #which hides vanilla hud (hearts, armor, hunger bar, ...)
+  #
+  # false = vanilla hud is hidden
+  # true = vanilla hud is shown
+  #
+  show-vanilla-hud: false
 
 huds:
 
