@@ -28,6 +28,26 @@ public class ConfigManager {
 
     }
 
+    public static void loadConfig(String configName, File file) {
+        if(new File(plugin.getDataFolder(), configName).exists()) {
+            configs.put(configName, YamlConfiguration.loadConfiguration(file));
+        }
+    }
+
+    public static void unloadConfig(String configName) {
+        configs.remove(configName);
+    }
+
+    public static boolean deleteConfig(String configName) {
+        File file = new File(plugin.getDataFolder(), configName);
+        if(file.exists()) {
+            if(file.delete()) {
+                unloadConfig(configName);
+                return true;
+            }
+        }
+        return false;
+    }
 
     public static void reloadConfig(String configName) {
         loadConfig(configName);
@@ -87,7 +107,27 @@ public class ConfigManager {
         String currentVersion = getConfig("config.yml").getString("config-version");
 
 
-        if(!configYaml.getString("config-version").equalsIgnoreCase(latestVersion)) {
+        //FORCE CONVERSION FOR 1.1 CONFIGS
+        //
+        //FROM 1.1 TO 1.2
+        if(currentVersion.equalsIgnoreCase("1.1")) {
+            BetterHud.sendMessageToConsole("&2======================================");
+            BetterHud.sendMessageToConsole("&aOld version of config detected!");
+
+            //MESSAGES CONFIG DELETION
+            if(deleteConfig("messages.yml")) {
+                BetterHud.sendMessageToConsole("&aSuccessfully deleted old version of messages.yml!");
+            } else {
+                BetterHud.sendMessageToConsole("&cFailed to delete the old version of messages.yml.. Please, do it manually and reload the plugin.");
+            }
+
+            BetterHud.sendMessageToConsole("&aStarting conversion...");
+            ConfigConverter.convert();
+            loadConfig("messages.yml");
+        }
+
+        //DEFAULT
+        else if(!configYaml.getString("config-version").equalsIgnoreCase(currentVersion)) {
 
             BetterHud.sendMessageToConsole("&aNew version of config files found! Updating..");
 
