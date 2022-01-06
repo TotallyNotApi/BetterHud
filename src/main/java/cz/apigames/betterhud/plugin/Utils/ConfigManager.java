@@ -84,7 +84,8 @@ public class ConfigManager {
         YamlConfiguration configYaml = YamlConfiguration.loadConfiguration(tempConfig.toFile());
         YamlConfiguration messagesYaml = YamlConfiguration.loadConfiguration(tempMessages.toFile());
 
-        String latestVersion = getConfig("config.yml").getString("config-version");
+        String currentVersion = getConfig("config.yml").getString("config-version");
+
 
         if(!configYaml.getString("config-version").equalsIgnoreCase(latestVersion)) {
 

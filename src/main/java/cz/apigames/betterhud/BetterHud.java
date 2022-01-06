@@ -47,6 +47,7 @@ public final class BetterHud extends JavaPlugin {
             Logger.createNewLogs();
 
             //UPDATE CHECKER
+            Bukkit.getServer().getPluginManager().registerEvents(new UpdateChecker(), this);
             UpdateChecker.checkUpdate();
 
             //EXTRACT TEXTURES

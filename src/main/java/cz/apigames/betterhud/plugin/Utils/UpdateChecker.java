@@ -36,6 +36,12 @@ public class UpdateChecker implements Listener {
             connection.setRequestMethod("GET");
             latestVersion = new BufferedReader(new InputStreamReader(connection.getInputStream())).readLine();
 
+            if(BetterHud.getVersion().contains("SNAPSHOT")) {
+                newUpdate = false;
+                BetterHud.sendMessageToConsole("You are using a SNAPSHOT version, which means, that some functions can be unstable. &cUse this version on production server at your own risk.");
+                return;
+            }
+
             if(!BetterHud.getVersion().equalsIgnoreCase(latestVersion))
                 newUpdate = true;
                 return;
