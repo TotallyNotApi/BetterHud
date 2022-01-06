@@ -206,11 +206,25 @@ public class BetterHudAPI {
                 if(yamlFile.isSet("huds."+hudName+".toggle-events")) {
                     for(String eventName : yamlFile.getConfigurationSection("huds."+hudName+".toggle-events").getKeys(false)) {
 
-                        ToggleEvent toggleEvent;
-                        if(yamlFile.isSet("huds."+hudName+".toggle-events."+eventName+".value")) {
-                            toggleEvent = new ToggleEvent(ToggleEvent.EventType.valueOf(yamlFile.getString("huds."+hudName+".toggle-events."+eventName+".event")), DisplayType.valueOf(yamlFile.getString("huds."+hudName+".toggle-events."+eventName+".display")), yamlFile.getString("huds."+hudName+".toggle-events."+eventName+".value"), yamlFile.getInt("huds."+hudName+".toggle-events."+eventName+".hide_after"));
-                        } else {
-                            toggleEvent = new ToggleEvent(ToggleEvent.EventType.valueOf(yamlFile.getString("huds."+hudName+".toggle-events."+eventName+".event")), DisplayType.valueOf(yamlFile.getString("huds."+hudName+".toggle-events."+eventName+".display")), yamlFile.getInt("huds."+hudName+".toggle-events."+eventName+".hide_after"));
+                        try {
+                            ToggleEvent toggleEvent;
+
+                            if(yamlFile.isSet("huds."+hudName+".toggle-events."+eventName+".value")) {
+                                toggleEvent = new ToggleEvent(ToggleEvent.EventType.valueOf(yamlFile.getString("huds."+hudName+".toggle-events."+eventName+".event")), DisplayType.valueOf(yamlFile.getString("huds."+hudName+".toggle-events."+eventName+".display")), yamlFile.getString("huds."+hudName+".toggle-events."+eventName+".value"), yamlFile.getInt("huds."+hudName+".toggle-events."+eventName+".hide_after"));
+                            } else {
+                                toggleEvent = new ToggleEvent(ToggleEvent.EventType.valueOf(yamlFile.getString("huds."+hudName+".toggle-events."+eventName+".event")), DisplayType.valueOf(yamlFile.getString("huds."+hudName+".toggle-events."+eventName+".display")), yamlFile.getInt("huds."+hudName+".toggle-events."+eventName+".hide_after"));
+                            }
+
+                            Set<ConstraintViolation<ToggleEvent>> event_violations = validator.validate(toggleEvent);
+                            if(event_violations.isEmpty()) {
+                                hud.addEvent(toggleEvent);
+                            } else {
+                                violations.add("Errors for ToggleEvent '"+toggleEvent+"' inside Hud '" + hudName + "':");
+                                event_violations.forEach(violation -> violations.add("╚ "+violation.getMessage()));
+                            }
+
+                        } catch (IllegalArgumentException e) {
+                            violations.add("Unknown ToggleEvent: "+yamlFile.getString("huds."+hudName+".toggle-events."+eventName+".event"));
                         }
 
                         Set<ConstraintViolation<ToggleEvent>> event_violations = validator.validate(toggleEvent);
@@ -317,6 +331,7 @@ public class BetterHudAPI {
 
 
         }
+        ToggleCommand.registerCommands();
         return violations;
     }
 

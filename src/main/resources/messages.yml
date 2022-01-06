@@ -50,4 +50,7 @@ messages:
   extract-textures-success: " &8» &aAll default textures have been extracted successfully!"
   extract-textures-error: " &8» &cFailed to extract default textures from JAR file. Please, contact plugin dev through discord."
 
+  toggle-custom-on: " &8» &7Toggled on hud &e{hudName}&7!"
+  toggle-custom-off: " &8» &7Toggled off hud &e{hudName}&7!"
+
   command-error: " &8» &cAn error occurred while executing this command! Please, check console for more information."

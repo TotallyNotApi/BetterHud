@@ -70,11 +70,14 @@ public class ToggleEvent {
         return hide_after;
     }
 
-    public static enum EventType {
+    public enum EventType {
 
         PLAYER_JOIN,
         COMMAND,
-        GAMEMODE_CHANGE
+        GAMEMODE_CHANGE,
+        DAMAGE_BY_PLAYER,
+        DAMAGE_BY_ENTITY,
+        DAMAGE_OTHER
 
     }
 }

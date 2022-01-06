@@ -7,9 +7,7 @@ public class ListenerRegister {
 
     public static void registerListeners() {
         Bukkit.getServer().getPluginManager().registerEvents(new ItemsAdderLoad(), BetterHudAPI.getPlugin());
-        Bukkit.getServer().getPluginManager().registerEvents(new PlayerJoin(), BetterHudAPI.getPlugin());
-        Bukkit.getServer().getPluginManager().registerEvents(new PlayerLeave(), BetterHudAPI.getPlugin());
-        Bukkit.getServer().getPluginManager().registerEvents(new GamemodeChange(), BetterHudAPI.getPlugin());
+        Bukkit.getServer().getPluginManager().registerEvents(new PlayerListener(), BetterHudAPI.getPlugin());
     }
 
 }

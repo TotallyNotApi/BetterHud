@@ -7,6 +7,7 @@ import cz.apigames.betterhud.api.Displays.DisplayType;
 import cz.apigames.betterhud.api.Elements.Element;
 import cz.apigames.betterhud.api.Hud;
 import cz.apigames.betterhud.api.Utils.MessageUtils;
+import cz.apigames.betterhud.api.Utils.ToggleCommand;
 import cz.apigames.betterhud.plugin.Utils.ConfigManager;
 import cz.apigames.betterhud.plugin.Utils.FileUtils;
 import cz.apigames.betterhud.plugin.Utils.JsonMessage;
@@ -724,6 +725,10 @@ public class CommandManager implements CommandExecutor {
                         ConfigManager.reloadConfig("config.yml");
                         ConfigManager.reloadConfig("messages.yml");
                         ConfigManager.reloadConfig("characters.yml");
+
+                        //TOGGLE COMMAND MESSAGES
+                        ToggleCommand.setEnableMessage(ConfigManager.getConfig("messages.yml").getString("messages.toggle-custom-on", ""));
+                        ToggleCommand.setDisableMessage(ConfigManager.getConfig("messages.yml").getString("messages.toggle-custom-off", ""));
 
                         List<String> errors = BetterHud.getAPI().load(new File(BetterHud.getPlugin().getDataFolder(), "config.yml"), true);
                         Future<Boolean> FontImageFiles_success = BetterHud.getAPI().generateFontImageFiles(new File(BetterHud.getPlugin().getDataFolder(), "characters.yml"), new File("plugins/ItemsAdder/data/items_packs/betterhud"));

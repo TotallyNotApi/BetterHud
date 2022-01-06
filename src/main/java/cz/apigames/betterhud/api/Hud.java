@@ -214,31 +214,58 @@ public class Hud {
      * @param player   the player
      * @param displayType  where the hud should be rendered (ACTIONBAR, BOSSBAR, CHAT)
      * @param hideAfter time in seconds the hud should disappear
+     * @param override when there is some hud already displayed, should we override it?
+     *                 When hideAfter is set, the old hud will be re-displayed after that time
      *
      * @throws IllegalArgumentException when displayType is not valid
      * @throws IllegalStateException when some hud is already displayed via specified displayType
      *
      * @return true if player have met all specified conditions
      */
-    public boolean renderFor(Player player, DisplayType displayType, int hideAfter) throws IllegalStateException, IllegalArgumentException {
+    public boolean renderFor(Player player, DisplayType displayType, int hideAfter, boolean override) throws IllegalStateException, IllegalArgumentException {
 
         for(Condition cond : conditions) {
             if(!cond.checkFor(player)) return false;
         }
 
-        Display display;
+        if(Display.getDisplays(player).stream().anyMatch(display -> DisplayType.getDisplayType(display).equals(displayType))) {
 
-        if(Display.getDisplays(player).stream().anyMatch(display1 -> DisplayType.getDisplayType(display1).equals(displayType))) {
-            throw new IllegalStateException("Some hud is already displayed via this display!");
+            if(override) {
+
+                Display.getDisplays(player).stream().filter(display -> DisplayType.getDisplayType(display).equals(displayType)).findFirst().ifPresent(display -> {
+
+                    if(hideAfter != 0) {
+
+                        Hud oldHud = display.getHud();
+                        display.destroy();
+
+                        Bukkit.getScheduler().runTaskLaterAsynchronously(BetterHudAPI.getPlugin(), () -> {
+
+                            oldHud.renderFor(player, displayType, 0, true);
+
+                        }, hideAfter * 20L);
+
+                    } else {
+
+                        display.destroy();
+
+                    }
+
+                });
+
+            } else {
+                throw new IllegalStateException("Some hud is already displayed via this display!");
+            }
+
         }
 
         if(displayType.equals(DisplayType.CHAT)) {
             player.sendMessage(getRenderedString(player));
             return true;
         } else if(displayType.equals(DisplayType.ACTIONBAR)) {
-            display = new ActionBarDisplay(player, this);
+            new ActionBarDisplay(player, this);
         } else if(displayType.equals(DisplayType.BOSSBAR)) {
-            display = new BossBarDisplay(player, this);
+            new BossBarDisplay(player, this);
         } else {
             throw new IllegalArgumentException("Invalid DisplayType value!");
         }
@@ -268,7 +295,7 @@ public class Hud {
      * @throws IllegalStateException when some hud is already displayed via specified displayType
      */
     public boolean renderFor(Player player, DisplayType displayType) throws IllegalStateException, IllegalArgumentException {
-        return renderFor(player, displayType, 0);
+        return renderFor(player, displayType, 0, false);
     }
 
     /**

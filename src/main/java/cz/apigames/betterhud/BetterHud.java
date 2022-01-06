@@ -2,6 +2,7 @@ package cz.apigames.betterhud;
 
 import cz.apigames.betterhud.api.BetterHudAPI;
 import cz.apigames.betterhud.api.Utils.MessageUtils;
+import cz.apigames.betterhud.api.Utils.ToggleCommand;
 import cz.apigames.betterhud.plugin.Commands.CommandManager;
 import cz.apigames.betterhud.plugin.Commands.TabManager;
 import cz.apigames.betterhud.plugin.Utils.*;
@@ -42,6 +43,10 @@ public final class BetterHud extends JavaPlugin {
             } catch (IOException | NullPointerException e) {
                 error("Failed to update plugin files! Check 'logs/errors.txt' for more info", e);
             }
+
+            //TOGGLE COMMAND MESSAGES
+            ToggleCommand.setEnableMessage(ConfigManager.getConfig("messages.yml").getString("messages.toggle-custom-on", ""));
+            ToggleCommand.setDisableMessage(ConfigManager.getConfig("messages.yml").getString("messages.toggle-custom-off", ""));
 
             //LOGGER
             Logger.createNewLogs();
@@ -125,6 +130,7 @@ public final class BetterHud extends JavaPlugin {
     @Override
     public void onDisable() {
 
+        ToggleCommand.unregisterCommands();
         api.unload();
 
         sendMessageToConsole("&cPlugin was successfully disabled! Version: &4"+getVersion());
