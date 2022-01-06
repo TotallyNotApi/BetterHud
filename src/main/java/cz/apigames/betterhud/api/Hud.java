@@ -116,7 +116,6 @@ public class Hud {
     public void setRefreshInterval(int refreshInterval) {
         this.refreshInterval = refreshInterval;
     }
-
     /* --- METHODS --- */
 
     /**

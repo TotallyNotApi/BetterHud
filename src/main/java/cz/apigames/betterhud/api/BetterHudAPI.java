@@ -3,14 +3,12 @@ package cz.apigames.betterhud.api;
 import cz.apigames.betterhud.api.Displays.Display;
 import cz.apigames.betterhud.api.Displays.DisplayType;
 import cz.apigames.betterhud.api.Elements.*;
-import cz.apigames.betterhud.api.Utils.ExceptionListener;
-import cz.apigames.betterhud.api.Utils.Condition;
+import cz.apigames.betterhud.api.Utils.*;
 import cz.apigames.betterhud.api.Utils.Listeners.ListenerRegister;
-import cz.apigames.betterhud.api.Utils.MessageUtils;
-import cz.apigames.betterhud.api.Utils.ToggleEvent;
 import dev.lone.itemsadder.api.FontImages.FontImageWrapper;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.management.InstanceAlreadyExistsException;
@@ -37,7 +35,7 @@ public class BetterHudAPI {
     public static final HashMap<String, FontImageWrapper> fontImageCharacters = new HashMap<>();
     public static final HashMap<Character, String> charactersInternalNames = new HashMap<>();
 
-    private static final String[] HEX_VERSIONS = {"1.16", "1.17", "1.18"};
+    private static final String[] HEX_VERSIONS = {"1.16", "1.17", "1.18", "1.19"};
 
     /**
      * Constructor for BetterHudAPI class (can be used only once)
@@ -227,14 +225,6 @@ public class BetterHudAPI {
 
                         } catch (IllegalArgumentException e) {
                             violations.add("Unknown ToggleEvent: "+yamlFile.getString("huds."+hudName+".toggle-events."+eventName+".event"));
-                        }
-
-                        Set<ConstraintViolation<ToggleEvent>> event_violations = validator.validate(toggleEvent);
-                        if(event_violations.isEmpty()) {
-                            hud.addEvent(toggleEvent);
-                        } else {
-                            violations.add("Errors for ToggleEvent '"+toggleEvent+"' inside Hud '" + hudName + "':");
-                            event_violations.forEach(violation -> violations.add("╚ "+violation.getMessage()));
                         }
 
                     }

@@ -3,6 +3,7 @@ package cz.apigames.betterhud.api.Elements;
 import cz.apigames.betterhud.api.BetterHudAPI;
 import cz.apigames.betterhud.api.Utils.Condition;
 import cz.apigames.betterhud.api.Utils.MessageUtils;
+import dev.lone.itemsadder.api.FontImages.FontImageWrapper;
 import org.bukkit.entity.Player;
 
 public class PlainTextElement extends Element {
