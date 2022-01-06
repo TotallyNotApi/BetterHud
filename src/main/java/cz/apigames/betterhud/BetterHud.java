@@ -81,6 +81,7 @@ public final class BetterHud extends JavaPlugin {
             //CHECKSUM INIT
             try {
                 if(future.get(5, TimeUnit.SECONDS)) {
+                    BetterHudAPI.fontImageCharacters.clear();
                     for(File child : BetterHudAPI.getFontImagesDirectory().listFiles()) {
                         checksums.add(FileUtils.checksum(child));
 
@@ -88,13 +89,13 @@ public final class BetterHud extends JavaPlugin {
 
                         String namespace = yaml.getString("info.namespace");
 
-                        BetterHudAPI.fontImageCharacters.clear();
-
-                        Optional<String> optName = yaml.getConfigurationSection("font_images").getKeys(false).stream().findFirst();
-                        if(optName.isPresent()) {
-                            if(new FontImageWrapper(namespace + ":" + optName.get()).exists()) {
-                                for(String name : yaml.getConfigurationSection("font_images").getKeys(false)) {
-                                    BetterHudAPI.fontImageCharacters.put(name, new FontImageWrapper(namespace + ":" + name));
+                        if(yaml.contains("font_images")) {
+                            Optional<String> optName = yaml.getConfigurationSection("font_images").getKeys(false).stream().findFirst();
+                            if(optName.isPresent()) {
+                                if(new FontImageWrapper(namespace + ":" + optName.get()).exists()) {
+                                    for(String name : yaml.getConfigurationSection("font_images").getKeys(false)) {
+                                        BetterHudAPI.fontImageCharacters.put(name, new FontImageWrapper(namespace + ":" + name));
+                                    }
                                 }
                             }
                         }

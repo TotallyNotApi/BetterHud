@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 import java.io.File;
+import java.util.Objects;
 
 class ItemsAdderLoad implements Listener {
 
@@ -16,31 +17,34 @@ class ItemsAdderLoad implements Listener {
     public void onLoad(ItemsAdderLoadDataEvent event) {
 
         //FONT IMAGES
-        if(BetterHudAPI.getFontImagesDirectory() != null) {
+        if(BetterHudAPI.getFontImagesDirectory() != null && BetterHudAPI.getFontImagesDirectory().isDirectory() && BetterHudAPI.getFontImagesDirectory().listFiles() != null) {
 
-            if(BetterHudAPI.getFontImagesDirectory().isDirectory()) {
-                for(File child : BetterHudAPI.getFontImagesDirectory().listFiles()) {
+            for(File child : BetterHudAPI.getFontImagesDirectory().listFiles()) {
 
-                    YamlConfiguration yaml = YamlConfiguration.loadConfiguration(child);
+                YamlConfiguration yaml = YamlConfiguration.loadConfiguration(child);
 
-                    String namespace = yaml.getString("info.namespace");
+                String namespace = yaml.getString("info.namespace");
 
-                    BetterHudAPI.fontImageCharacters.clear();
+                BetterHudAPI.fontImageCharacters.clear();
+
+                if(yaml.contains("font_images")) {
                     for(String name : yaml.getConfigurationSection("font_images").getKeys(false)) {
 
                         BetterHudAPI.fontImageCharacters.put(name, new FontImageWrapper(namespace + ":" + name));
 
                     }
-
                 }
+
             }
+
         }
 
         //IMAGE ELEMENTS
-        BetterHudAPI.getLoadedHuds().forEach(hud -> hud.getElements().stream().filter(element -> element instanceof ImageElement).forEach(element -> {
+
+        BetterHudAPI.getLoadedHuds().stream().filter(Objects::nonNull).forEach(hud -> hud.getElements().stream().filter(element -> element instanceof ImageElement).forEach(element -> {
 
             FontImageWrapper image = new FontImageWrapper(((ImageElement) element).getImageName() + "-" + element.getY() + "_" + element.getScale());
-            if(image.exists()) {
+            if(image != null && image.exists()) {
 
                 ((ImageElement) element).setWidth(image.getWidth());
 

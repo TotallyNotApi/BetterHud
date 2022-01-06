@@ -52,21 +52,39 @@ public class ImageElement extends Element {
      */
     public String getImageName() {
         String[] fileName = value.split("/");
-        return value.split(":")[0] + ":" + fileName[fileName.length-1].split("\\.")[0];
+
+        if(value.contains(":")) {
+            return value.split(":")[0] + ":" + fileName[fileName.length-1].split("\\.")[0];
+        } else {
+            return "betterhud:" + fileName[fileName.length-1].split("\\.")[0];
+        }
+
     }
 
     /**
-     * @return the path to the image"
+     * @return the path to the image (when there is no namespace in the path, "betterhud" is used)
      */
     public String getImagePath() {
-        return super.value.split(":")[1];
+
+        if(super.value.contains(":")) {
+            return super.value.split(":")[1];
+        } else {
+            return "betterhud:"+super.value;
+        }
+
     }
 
     /**
-     * @return the namespace id
+     * @return the namespace id (when there is no namespace in the path, "betterhud" is returned)
      */
     public String getNamespace() {
-        return super.value.split(":")[0];
+
+        if(super.value.contains(":")) {
+            return super.value.split(":")[0];
+        } else {
+            return "betterhud";
+        }
+
     }
 
     /* --- METHODS --- */
