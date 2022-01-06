@@ -3,9 +3,10 @@ package cz.apigames.betterhud.api.Utils;
 import cz.apigames.betterhud.api.BetterHudAPI;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,6 +29,9 @@ public class MessageUtils {
     }
 
     public static String translatePlaceholders(String message, Player player) {
+        return translatePlaceholders(message, player, null);
+    }
+    public static String translatePlaceholders(String message, Player player, List<Placeholder> placeholders) {
 
         if(BetterHudAPI.isPapiEnabled()) {
 
@@ -46,6 +50,10 @@ public class MessageUtils {
 
             }
 
+        }
+
+        if(placeholders != null) {
+            message = Placeholder.replacePlaceholders(placeholders, message);
         }
 
         for(String placeholder : BetterHudPlaceholders.placeholders) {
@@ -92,6 +100,10 @@ public class MessageUtils {
         str = str.replaceAll("(?<!\\\\)(\\{#[a-fA-F0-9]{6}})", "");
 
         return str;
+    }
+
+    public static String enumToName(String enumValue) {
+        return enumValue.charAt(0) + enumValue.substring(1).toLowerCase(Locale.ROOT);
     }
 
 }

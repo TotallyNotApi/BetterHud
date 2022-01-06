@@ -32,6 +32,8 @@ public class BetterHudAPI {
 
     protected static File FontImagesDirectory;
 
+    protected static HashMap<Player, List<Placeholder>> placeholders = new HashMap<>();
+
     public static final HashMap<String, FontImageWrapper> fontImageCharacters = new HashMap<>();
     public static final HashMap<Character, String> charactersInternalNames = new HashMap<>();
 
@@ -615,4 +617,52 @@ public class BetterHudAPI {
         HEX_SUPPORTED = false;
 
     }
+
+    /* --- PLACEHOLDERS --- */
+
+    /**
+     * Returns the set of placeholders for specified player
+     *
+     * @param player the player
+     *
+     * @return the set of placeholders
+     */
+    public static List<Placeholder> getPlaceholders(Player player) {
+        return placeholders.get(player);
+    }
+
+    /**
+     * Set placeholder for the player
+     *
+     * @param player   the player
+     * @param placeholder the placeholder
+     */
+    public static void setPlaceholder(Player player, Placeholder placeholder) {
+        List<Placeholder> placeholderSet = new ArrayList<>();
+        if(placeholders.containsKey(player)) {
+            placeholderSet = placeholders.get(player);
+        }
+        placeholderSet.add(placeholder);
+        placeholders.put(player, placeholderSet);
+    }
+
+    /**
+     * Set multiple placeholders for the player (this overrides current placeholders)
+     *
+     * @param player   the player
+     * @param placeholderSet the Set of placeholders
+     */
+    public static void setPlaceholders(Player player, List<Placeholder> placeholderSet) {
+        placeholders.put(player, placeholderSet);
+    }
+
+    /**
+     * Clears all placeholders for the player
+     *
+     * @param player   the player
+     */
+    public static void clearPlaceholders(Player player) {
+        placeholders.remove(player);
+    }
+
 }

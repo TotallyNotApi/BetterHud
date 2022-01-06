@@ -36,7 +36,7 @@ public class TextElement extends Element {
 
         //MESSAGE SETUP
         String message = isVisible(player) && Condition.checkFor(player, conditions) ? value : "";
-        message = MessageUtils.translatePlaceholders(message,player);
+        message = MessageUtils.translatePlaceholders(message,player,BetterHudAPI.getPlaceholders(player));
 
         int charCount = 0;
         int whitespace = 0;

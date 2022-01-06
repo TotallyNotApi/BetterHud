@@ -29,11 +29,7 @@ public class PlainTextElement extends Element {
             return "";
         }
 
-        if(BetterHudAPI.isPapiEnabled()) {
-            return MessageUtils.colorize(MessageUtils.translatePlaceholders("%img_offset_"+ix+"%" + value + "&r", player));
-        } else {
-            return value + MessageUtils.colorize("&r");
-        }
+        return FontImageWrapper.applyPixelsOffsetToString(MessageUtils.colorize(MessageUtils.translatePlaceholders(value + "&r", player, BetterHudAPI.getPlaceholders(player))), ix);
 
     }
 

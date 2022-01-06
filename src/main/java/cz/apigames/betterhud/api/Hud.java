@@ -7,6 +7,7 @@ import cz.apigames.betterhud.api.Displays.DisplayType;
 import cz.apigames.betterhud.api.Elements.Alignment;
 import cz.apigames.betterhud.api.Elements.Element;
 import cz.apigames.betterhud.api.Utils.Condition;
+import cz.apigames.betterhud.api.Utils.Placeholder;
 import cz.apigames.betterhud.api.Utils.ToggleEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
